@@ -1,7 +1,7 @@
 Quiz_beamer
 ===========
 
-(English version will follow)
+(English version below)
 
 Vorbereitung
 ------------
@@ -14,7 +14,7 @@ Um einen Quizabend vorzubereiten, denke dir zunächst zu vier Themengebieten jew
     * Sortierfragen, bei denen auf dem Beamer mehrere Dinge erscheinen und eine Sortieraufgabe zu diesen.
     * Aktionen, bei denen vorne auf dem Beamer nur eine Aufgabenstellung erscheint.
 
-1. Kopiere die Dateien `quiz.php`, `settings.php.dist` sowie die Ordner `bootstrap` und `lang` mitsamt Inhalt in ein Verzeichnis, welches von deinem Webserver erreicht werden kann.
+1. Kopiere die Dateien `quiz.php` und `settings.php.dist` sowie die Ordner `bootstrap` und `lang` mitsamt Inhalt in ein Verzeichnis, welches von deinem Webserver erreicht werden kann.
 
 2. Bennene die Datei `settings.php.dist` in `settings.php` um.
 
@@ -116,3 +116,121 @@ See COPYING for details.
 Der Ordner `bootstrap`:
 
 Siehe https://github.com/twbs/bootstrap/blob/master/LICENSE
+
+English Version
+---------------
+
+
+Preparation
+------------
+
+To prepare a quiz evening, think of 20 questions in four categories (five questions with rising difficulty in each category). The questions have to be one of the following:
+
+    * Multiple-choice-questions with four possible answers
+    * Questions where you have to guess the answer and have a tolerance, with wich the answer is assumed correct.
+    * Fast questioning, where no questions appear at the beamer and only the number of correct answers has to be inserted
+    * Sorting questions, where multiple items are to be sorted by the players.
+    * Actions, only the task will appear.
+
+1. Copy the files `quiz.php` and `settings.php.dist` and the folders `bootstrap` and `lang` with its contents to a direcory that can be accessed by your webserver.
+
+2. Rename `settings.php.dist` to `settings.php`.
+
+3. Adjust `settings.php`.
+
+    3.1 The values for the Database should be self explaining. If you want, you can create a new database and a user that can only access this database for quiz_beamer.
+    
+    3.2 QUIZ_BROWSER_TITLE containts the title that will be shown in the Browser title bar.
+    
+    3.3 QUIZ_CATEGORY_1 to QUIZ_CATEGORY_4 contain the headlines for the four categories.
+    
+    3.4 QUIZ_LANGUAGE contains the language that will be used by quiz_beamer. In this case you may want to use 'en' for English. It is also possible to use 'de' for german. Currently quiz_beamer has not been translated to other languages.
+    
+4. Execute `init.sql` in the database you specified in `settings.php`
+
+5. Fill the database with the questions. The fields on the beamer are connected to the following question ids.
+
+```
+---------------------------------------------------------
+| Category 1  | Category 2  | Categorie 3 | Category 4  |
+---------------------------------------------------------
+| Question 1  | Question 2  | Question 3  | Question 4  |
+| (20 points) | (20 points) | (20 points) | (20 points) |
+---------------------------------------------------------
+| Question 5  | Question 6  | Question 7  | Question 8  |
+| (40 points) | (40 points) | (40 points) | (40 points) |
+---------------------------------------------------------
+| Question 9  | Question 10 | Question 11 | Question 12 |
+| (60 points) | (60 points) | (60 points) | (60 points) |
+---------------------------------------------------------
+| Question 13 | Question 14 | Question 15 | Question 16 |
+| (80 points) | (80 points) | (80 points) | (80 points) |
+---------------------------------------------------------
+| Question 17 | Question 18 | Question 19 | Question 20 |
+| (100 points)| (100 points)| (100 points)| (100 points)|
+---------------------------------------------------------
+```
+
+The questions have to be inserted like this: (don't touch `id` and `used`, the other fields not specified here should be set to `NULL`)
+
+    * Multiple-choice-question:
+        * type: 'question'
+        * text: The question
+        * answer_a bis answer_d: The four answers
+        * correct: The correct answer, 'A', 'B', 'C' or 'D'
+    * Questions where the players have to guess:
+        * type: 'estimate'
+        * text: The question
+        * correct: The correct answer as text, i.e. '30.2 seconds'
+        * correct_value: The correct answer as number, i.e. 30.2 (Important: Use . as decimal mark (don't use ,))
+        * marge: The tolerance as text, i.e. '0.4 seconds'
+        * marge_value: The tolerance as number, i.e. 0.4 (Important: Use . as decimal mark (don't use ,))
+    * Fast questioning
+        * type: 'fast'
+        * text: A title, i.e. 'Answer fast!'
+    * Sortierfrage
+        * type: 'sort'
+        * text: The sort questions
+        * text2: The items that have to be sorted, noted like this: `<ul><li><h3 style="margin:0px">Item 1</h3></li><li><h3 style="margin:0px">Item 2</h3></li></ul>`
+    * Aktion
+        * type: 'action'
+        * text: A description of the action
+
+Performance
+-----------
+
+To perform the quiz evening, open `quiz.php` in your browser. If you want to reset the points and the used questions, i.e. after a test of your questions, open `quiz.php?action=resetall` and then `quiz.php` again.
+
+The game will be played like this: Each group in turn (beginning with group 1) may choose a question and then has to answer it. If the question has been answered correct, the group will get the points that are connected to this questions, otherwise it will get nothing. There are the following exceptions:
+
+* At fast questioning, the group doesn't get the points that are connected to the field that has been chosen. Instead of this, there will be 20 points for every question that has been answered correct.
+ 
+* At actions there are no points saved for no group so that you can play a seperate game where another group or multiple groups can get points. These results then have to be inserted into the database manually.
+
+License
+------
+
+All files that are not in `bootstrap`:
+
+```
+Copyright (C) 2013 Simon Plasger
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+See COPYING for details.
+```
+
+The files in `bootstrap`:
+
+See https://github.com/twbs/bootstrap/blob/master/LICENSE
