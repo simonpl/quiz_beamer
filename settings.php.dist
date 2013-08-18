@@ -1,0 +1,11 @@
+<?php
+define('QUIZ_DATABASE_HOST', 'localhost');
+define('QUIZ_DATABASE_USER', 'quiz');
+define('QUIZ_DATABASE_PASSWORD', 'quiz');
+define('QUIZ_DATABASE', 'quiz');
+define('QUIZ_BROWSER_TITLE', 'Quizabend Dänemark 2013');
+define('QUIZ_CATEGORY_1', 'Kategorie 1');
+define('QUIZ_CATEGORY_2', 'Kategorie 2');
+define('QUIZ_CATEGORY_3', 'Kategorie 3');
+define('QUIZ_CATEGORY_4', 'Kategorie 4');
+define('QUIZ_LANGUAGE', 'de');
