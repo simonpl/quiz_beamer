@@ -200,7 +200,7 @@ else if(isset($_GET['action']) && $_GET['action'] == 'answer3')
     $points = $erg['points'];
     $points += $number * 20;
     $queryerg = mysql_query('UPDATE `groups` SET `points`='.$points.' WHERE `id`='.$_SESSION['group']);
-    if($_POST['value'] > 0)
+    if($number > 0)
     {
         echo '<h1 class="text-success" style="margin-left:0px">'.$number * 20 .' '.QUIZ_LANGUAGE_POINTS_FOR_GROUP.' '.$_SESSION['group'].'.</h1>';
     }
