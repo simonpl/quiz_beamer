@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 require('settings.php');
+require('functions.php');
 require('lang/'.QUIZ_LANGUAGE.'.php');
 $con = mysql_connect(QUIZ_DATABASE_HOST, QUIZ_DATABASE_USER, QUIZ_DATABASE_PASSWORD);
 if(!$con)
@@ -36,7 +37,7 @@ if(!isset($_SESSION['group']))
 <html>
     <head>
         <title><?php echo QUIZ_BROWSER_TITLE;?></title>
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
     </head>
     <body style="margin:auto;margin-bottom:0px">
@@ -139,33 +140,10 @@ else if(isset($_GET['action']) && $_GET['action'] == 'answer')
         $queryerg = mysql_query('SELECT * FROM `groups` WHERE `id`='.$_SESSION['group']);
         $erg = mysql_fetch_assoc($queryerg);
         $points = $erg['points'];
-        if($_GET['quest'] <= 4)
-        {
-            $points+=20;
-            $points2 = 20;
-        }
-        else if($_GET['quest'] <= 8)
-        {
-            $points+=40;
-            $points2 = 40;
-        }
-        else if($_GET['quest'] <= 12)
-        {
-            $points+=60;
-            $points2 = 60;
-        }
-        else if($_GET['quest'] <= 16)
-        {
-            $points+=80;
-            $points2 = 80;
-        }
-        else
-        {
-            $points+=100;
-            $points2 = 100;
-        }
+        $addpoints = calculate_points($quest);
+        $points += $addpoints;
         $queryerg = mysql_query('UPDATE `groups` SET `points`='.$points.' WHERE `id`='.$_SESSION['group']);
-        echo '<h1 class="text-success" style="margin-left:0px">'.$points2.' '.QUIZ_LANGUAGE_POINTS_FOR_GROUP.' '.$_SESSION['group'].'.</h1>';
+        echo '<h1 class="text-success" style="margin-left:0px">'.$addpoints.' '.QUIZ_LANGUAGE_POINTS_FOR_GROUP.' '.$_SESSION['group'].'.</h1>';
     }
     else
     {
@@ -192,33 +170,10 @@ else if(isset($_GET['action']) && $_GET['action'] == 'answer2')
         $queryerg = mysql_query('SELECT * FROM `groups` WHERE `id`='.$_SESSION['group']);
         $erg = mysql_fetch_assoc($queryerg);
         $points = $erg['points'];
-        if($quest <= 4)
-        {
-            $points+=20;
-            $points2 = 20;
-        }
-        else if($quest <= 8)
-        {
-            $points+=40;
-            $points2 = 40;
-        }
-        else if($quest <= 12)
-        {
-            $points+=60;
-            $points2 = 60;
-        }
-        else if($quest <= 16)
-        {
-            $points+=80;
-            $points2 = 80;
-        }
-        else
-        {
-            $points+=100;
-            $points2 = 100;
-        }
+        $addpoints = calculate_points($quest);
+        $points += $addpoints;
         $queryerg = mysql_query('UPDATE `groups` SET `points`='.$points.' WHERE `id`='.$_SESSION['group']);
-        echo '<h1 class="text-success" style="margin-left:0px">'.$points2.' '.QUIZ_LANGUAGE_POINTS_FOR_GROUP.' '.$_SESSION['group'].'.</h1>';
+        echo '<h1 class="text-success" style="margin-left:0px">'.$addpoints.' '.QUIZ_LANGUAGE_POINTS_FOR_GROUP.' '.$_SESSION['group'].'.</h1>';
     }
     else
     {
@@ -273,33 +228,10 @@ else if(isset($_GET['action']) && $_GET['action'] == 'answer4')
         $queryerg = mysql_query('SELECT * FROM `groups` WHERE `id`='.$_SESSION['group']);
         $erg = mysql_fetch_assoc($queryerg);
         $points = $erg['points'];
-        if($quest <= 4)
-        {
-            $points+=20;
-            $points2 = 20;
-        }
-        else if($quest <= 8)
-        {
-            $points+=40;
-            $points2 = 40;
-        }
-        else if($quest <= 12)
-        {
-            $points+=60;
-            $points2 = 60;
-        }
-        else if($quest <= 16)
-        {
-            $points+=80;
-            $points2 = 80;
-        }
-        else
-        {
-            $points+=100;
-            $points2 = 100;
-        }
+        $addpoints = calculate_points($quest);
+        $points += $addpoints;
         $queryerg = mysql_query('UPDATE `groups` SET `points`='.$points.' WHERE `id`='.$_SESSION['group']);
-        echo '<h1 class="text-success" style="margin-left:0px">'.$points2.' '.QUIZ_LANGUAGE_POINTS_FOR_GROUP.' '.$_SESSION['group'].'.</h1>';
+        echo '<h1 class="text-success" style="margin-left:0px">'.$addpoints.' '.QUIZ_LANGUAGE_POINTS_FOR_GROUP.' '.$_SESSION['group'].'.</h1>';
     }
     else
     {
