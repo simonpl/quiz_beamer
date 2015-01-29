@@ -132,7 +132,7 @@ To prepare a quiz evening, think of 20 questions in four categories (five questi
     * Sorting questions, where multiple items are to be sorted by the players.
     * Actions, only the task will appear.
 
-1. Copy the files `quiz.php` and `settings.php.dist` and the folders `bootstrap` and `lang` with its contents to a direcory that can be accessed by your webserver.
+1. Copy the files `quiz.php`, `functions.php` and `settings.php.dist` and the folders `bootstrap` and `lang` with its contents to a direcory that can be accessed by your webserver.
 
 2. Rename `settings.php.dist` to `settings.php`.
 
