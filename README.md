@@ -14,7 +14,7 @@ Um einen Quizabend vorzubereiten, denke dir zunächst zu vier Themengebieten jew
     * Sortierfragen, bei denen auf dem Beamer mehrere Dinge erscheinen und eine Sortieraufgabe zu diesen.
     * Aktionen, bei denen vorne auf dem Beamer nur eine Aufgabenstellung erscheint.
 
-1. Kopiere die Dateien `quiz.php` und `settings.php.dist` sowie die Ordner `bootstrap` und `lang` mitsamt Inhalt in ein Verzeichnis, welches von deinem Webserver erreicht werden kann.
+1. Kopiere die Dateien `quiz.php`, `functions.php` und `settings.php.dist` sowie die Ordner `bootstrap` und `lang` mitsamt Inhalt in ein Verzeichnis, welches von deinem Webserver erreicht werden kann.
 
 2. Bennene die Datei `settings.php.dist` in `settings.php` um.
 
